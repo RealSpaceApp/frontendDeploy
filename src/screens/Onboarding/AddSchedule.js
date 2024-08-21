@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import ActionButtonGreen from '../../components/events/ActionButtonGreen';
 import { SvgXml } from 'react-native-svg';
-import CloseButton from '../../../../app/assets/onboarding/CloseButton';
-import Drill_in from '../../../../app/assets/onboarding/Drill_in';
+// import CloseButton from '../../../../app/assets/onboarding/CloseButton';
+// import Drill_in from '../../../../app/assets/onboarding/Drill_in';
 
 const AddSchedule = ({ navigation }) => {
   const [selectedTime, setSelectedTime] = useState('');
@@ -33,7 +33,7 @@ const AddSchedule = ({ navigation }) => {
               <Text style={styles.contentTitle}>Time of the day</Text>
               <Text style={styles.subtitle2}>{selectedTime || 'Select a time'}</Text>
             </View>
-            <SvgXml xml={Drill_in} onPress={() => setModalVisible(true)} />
+            {/* <SvgXml xml={Drill_in} onPress={() => setModalVisible(true)} /> */}
           </TouchableOpacity>
           <View style={styles.divider}></View>
           <TextInput
@@ -75,7 +75,7 @@ const AddSchedule = ({ navigation }) => {
             <View style={styles.modalTitleContainer}>
               <Text style={styles.modalTitle}>Time of the day</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <SvgXml xml={CloseButton} onPress={() => cancelSelection()} />
+                {/* <SvgXml xml={CloseButton} onPress={() => cancelSelection()} /> */}
               </TouchableOpacity>
             </View>
             <View style={styles.themesContainer}>
