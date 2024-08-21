@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { SvgXml } from 'react-native-svg';
-import FinalOnboarding from '../../../../app/assets/onboarding/FinalOnboarding';
+// import { SvgXml } from 'react-native-svg';
+// import FinalOnboarding from '../../../../app/assets/onboarding/FinalOnboarding';
 import ActionButtonGreen from '../../components/events/ActionButtonGreen';
 
 const LastOnboarding = ({ navigation }) => {
@@ -14,7 +14,7 @@ const LastOnboarding = ({ navigation }) => {
         <View>
           <Text style={styles.subtitle}>An app dedicated to facilitating in-person relationships and genuine social interactions. We want you to be looking up instead of down at this screen.</Text>
         </View>
-        <SvgXml xml={FinalOnboarding} style={styles.image} />
+        {/* <SvgXml xml={FinalOnboarding} style={styles.image} /> */}
       </View>
       <View style={styles.buttonContainer}>
         <ActionButtonGreen content={'Lets go!'}
