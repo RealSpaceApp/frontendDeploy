@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Community from '../../../../app/assets/events/navbar/Community';
-import Events from '../../../../app/assets/events/navbar/Events';
-import Friends from '../../../../app/assets/events/navbar/Friends';
-import MyEvents from '../../../../app/assets/events/navbar/MyEvents';
+import Community from '../../../../app/assets/events/navbar/Community.js';
+import Events from '../../../../app/assets/events/navbar/Events.js';
+import Friends from '../../../../app/assets/events/navbar/Friends.js';
+import MyEvents from '../../../../app/assets/events/navbar/MyEvents.js';
 import photo from '../../../../app/assets/pictures/photo.png';
 
 const NavBar = ({ profilePage }) => {

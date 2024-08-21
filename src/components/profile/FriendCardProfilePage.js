@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import Checked from '../../../../app/assets/friends/Checked';
+import Checked from '../../../../app/assets/friends/Checked.js';
 import { useNavigation } from '@react-navigation/native';
 
 const FriendCardProfilePage = ({ id, photo, friend, name, moderator, available, color, selected, setSelectedItem, selectedItem }) => {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Clock from '../../../../app/assets/events/Clock';
-import Location from '../../../../app/assets/events/Location';
-import ExpandArrow from '../../../../app/assets/events/ExpandArrow';
+import Clock from '../../../../app/assets/events/Clock.js';
+import Location from '../../../../app/assets/events/Location.js';
+import ExpandArrow from '../../../../app/assets/events/ExpandArrow.js';
 
 const EventsCard = ({ important, name, eventTitle, time, text, location }) => {
   const [expanded, setExpanded] = useState(false);

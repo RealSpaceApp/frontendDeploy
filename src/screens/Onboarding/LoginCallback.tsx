@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import { RootStackParamList } from 'types/navigation';
 
-import Stars2 from 'assets/onboarding/Stars2';
+import Stars2 from 'assets/onboarding/Stars2.js';
 
 const LoginCallbackScreen: React.FC<{}> = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();

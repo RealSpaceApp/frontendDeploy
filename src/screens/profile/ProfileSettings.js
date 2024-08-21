@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Switch, Modal } from 'react-native';
 import NavBar from '../../components/navbar/NavBar';
 import { SvgXml } from 'react-native-svg';
-import Arrow from '../../../../app/assets/onboarding/Arrow';
+import Arrow from '../../../../app/assets/onboarding/Arrow.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileSettings = ({ navigation }) => {

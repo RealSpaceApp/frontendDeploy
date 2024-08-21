@@ -6,9 +6,9 @@ import FriendCardProfilePage from '../../components/profile/FriendCardProfilePag
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
-import WhiteArrow from '../../../../app/assets/onboarding/WhiteArrow';
-import Settings from '../../../../app/assets/circles/Settings';
-import Location from '../../../../app/assets/events/Location';
+import WhiteArrow from '../../../../app/assets/onboarding/WhiteArrow.js';
+import Settings from '../../../../app/assets/circles/Settings.js';
+import Location from '../../../../app/assets/events/Location.js';
 import EventsCard from '../../components/events/cards/EventsCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';

@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Home from '../../../../app/assets/profile/Home';
-import Inbox from '../../../../app/assets/profile/Inbox';
-import Bell from '../../../../app/assets/profile/Bell';
+import Home from '../../../../app/assets/profile/Home.js';
+import Inbox from '../../../../app/assets/profile/Inbox.js';
+import Bell from '../../../../app/assets/profile/Bell.js';
 import photo from '../../../../app/assets/pictures/photo.png';
 
 const ProfileNavBar = () => {

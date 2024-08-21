@@ -11,7 +11,7 @@ import NextButton from '@components/events/NextButton';
 import ProgressBar from '@components/events/ProgressBar';
 import GoBackButton from '@components/events/GoBackButton';
 
-import Clear from 'assets/onboarding/Clear';
+import Clear from 'assets/onboarding/Clear.js';
 
 type NameProps = NativeStackScreenProps<
   RootStackParamList,

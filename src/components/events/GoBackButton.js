@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Arrow from '../../../../app/assets/onboarding/Arrow';
+import Arrow from '../../../../app/assets/onboarding/Arrow.js';
 import { SvgXml } from 'react-native-svg';
 
 const GoBackButton = ({ onPress }) => {

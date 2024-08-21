@@ -6,7 +6,7 @@ import { themes } from './Themes2';
 import FriendCardProfilePage from '../../components/profile/FriendCardProfilePage';
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
-import CloseButton from '../../../../app/assets/onboarding/CloseButton';
+import CloseButton from '../../../../app/assets/onboarding/CloseButton.js';
 import { SvgXml } from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Add from '../../../../app/assets/events/Add'
+import Add from '../../../../app/assets/events/Add.js'
 
 const CreatingButton = ({ onPress }) => {
   return (

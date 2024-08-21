@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableOpacity, Text, TextInput, Image, Modal, Aler
 import { SvgXml } from 'react-native-svg';
 import LocationModal from '../../components/events/modals/LocationModal';
 import TimezoneModal from '../../components/events/modals/TimezoneModal';
-import PopupMenuIndicator from '../../../../app/assets/events/PopupMenuIndicator';
-import CoverPhoto from '../../../../app/assets/circles/CoverPhoto';
+import PopupMenuIndicator from '../../../../app/assets/events/PopupMenuIndicator.js';
+import CoverPhoto from '../../../../app/assets/circles/CoverPhoto.js';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'react-native-image-picker';

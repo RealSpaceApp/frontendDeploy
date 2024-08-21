@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Clock from '../../../../app/assets/events/Clock';
+import Clock from '../../../../app/assets/events/Clock.js';
 
 const ScheduleCard = ({ title, time, text }) => {
 

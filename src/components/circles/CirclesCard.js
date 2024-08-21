@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import CoverPhoto from '../../../../app/assets/circles/CoverPhoto';
+import CoverPhoto from '../../../../app/assets/circles/CoverPhoto.js';
 import { SvgXml } from 'react-native-svg';
 
 const CirclesCard = ({ photo, name, eventTitle, id, tags }) => {

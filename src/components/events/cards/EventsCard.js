@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput, ScrollView, Image, Text, Modal, TouchableWithoutFeedback } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Clock from '../../../../../app/assets/events/Clock';
-import Location from '../../../../../app/assets/events/Location';
-import ExpandArrow from '../../../../../app/assets/events/ExpandArrow';
+import Clock from '../../../../../app/assets/events/Clock.js';
+import Location from '../../../../../app/assets/events/Location.js';
+import ExpandArrow from '../../../../../app/assets/events/ExpandArrow.js';
 import Tags from './Tags';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import ActionButtonGreen from '../ActionButtonGreen';
-import CloseButton from '../../../../../app/assets/onboarding/CloseButton';
-import TimerAttend from '../../../../../app/assets/events/TimerAttend';
-import TimerNotAttend from '../../../../../app/assets/events/TimerNotAttend';
+import CloseButton from '../../../../../app/assets/onboarding/CloseButton.js';
+import TimerAttend from '../../../../../app/assets/events/TimerAttend.js';
+import TimerNotAttend from '../../../../../app/assets/events/TimerNotAttend.js';
 import creatorPhoto from '../../../../../app/assets/pictures/eventImage1.jpg'
 
 const EventsCard = ({ eventId, attending, creator, photo, name, image, eventTitle, notes, addNotes, time, text, location, onDelete }) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Text, TouchableOpacity, Alert } from 'react-native';
 import EventsCard from '../../components/events/cards/EventsCard';
 import { SvgXml } from 'react-native-svg';
-import Notification from '../../../../app/assets/events/Notification';
+import Notification from '../../../../app/assets/events/Notification.js';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

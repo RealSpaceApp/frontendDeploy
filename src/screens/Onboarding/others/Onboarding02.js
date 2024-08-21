@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import GeometricForms from '../../../../../app/assets/onboarding/GeometricForms01';
-import Arrow from '../../../../../app/assets/onboarding/Arrow';
-import Pagination from '../../../../../app/assets/onboarding/Pagination';
+import GeometricForms from '../../../../../app/assets/onboarding/GeometricForms01.js';
+import Arrow from '../../../../../app/assets/onboarding/Arrow.js';
+import Pagination from '../../../../../app/assets/onboarding/Pagination.js';
 
 const HomeScreen = ({ navigation }) => {
   return (

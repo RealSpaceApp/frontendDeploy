@@ -12,7 +12,7 @@ import { SvgXml } from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-import SettingsIcon from '../../../../app/assets/profile/SettingsIcon'
+import SettingsIcon from '../../../../app/assets/profile/SettingsIcon.js'
 
 const scheduleData = [
   {

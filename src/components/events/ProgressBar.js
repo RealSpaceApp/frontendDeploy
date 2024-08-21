@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import CurrentStep from '../../../../app/assets/onboarding/CurrentStep';
-import NextStep from '../../../../app/assets/onboarding/NextStep';
-import CheckedStep from '../../../../app/assets/onboarding/CheckedStep';
+import CurrentStep from '../../../../app/assets/onboarding/CurrentStep.js';
+import NextStep from '../../../../app/assets/onboarding/NextStep.js';
+import CheckedStep from '../../../../app/assets/onboarding/CheckedStep.js';
 
 const ProgressBar = ({ current }) => {
   const getStepIcon = (step) => {

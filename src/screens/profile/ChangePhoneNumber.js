@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SvgXml } from 'react-native-svg';
-import CloseButton from '../../../../app/assets/onboarding/CloseButton';
-import Drill_down from '../../../../app/assets/onboarding/Drill_down';
+import CloseButton from '../../../../app/assets/onboarding/CloseButton.js';
+import Drill_down from '../../../../app/assets/onboarding/Drill_down.js';
 
 const ChangePhoneNumber = ({ navigation }) => {
   const textInputs = Array.from({ length: 6 }, () => useRef(null));

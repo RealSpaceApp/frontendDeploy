@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import AvailabilityFeatureImg from '../../../assets/onboarding/AvailabiliyFeatureImg';
+import AvailabilityFeatureImg from '../../../assets/onboarding/AvailabiliyFeatureImg.js';
 import ActionButtonGreen from '../../components/events/ActionButtonGreen';
 import { RootStackParamList } from 'types/navigation';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';

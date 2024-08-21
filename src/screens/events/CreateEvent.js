@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, TextInput, Switch, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import Navbar from '../../components/navbar/NavBar';
-import Clock2 from '../../../../app/assets/events/Clock2';
+import Clock2 from '../../../../app/assets/events/Clock2.js';
 import LocationModal from '../../components/events/modals/LocationModal';
 import TimezoneModal from '../../components/events/modals/TimezoneModal';
 import VisibilityModal from '../../components/events/modals/VisibilityModal';
-import PopupMenuIndicator from '../../../../app/assets/events/PopupMenuIndicator';
+import PopupMenuIndicator from '../../../../app/assets/events/PopupMenuIndicator.js';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

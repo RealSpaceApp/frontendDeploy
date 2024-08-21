@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-import Checked from '../../../../app/assets/friends/Checked';
+import Checked from '../../../../app/assets/friends/Checked.js';
 
 const FriendCard = ({ photo, name, friends }) => {
   return (
