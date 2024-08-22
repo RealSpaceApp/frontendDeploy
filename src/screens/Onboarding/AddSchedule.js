@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 import ActionButtonGreen from '../../components/events/ActionButtonGreen';
 import { SvgXml } from 'react-native-svg';
-import CloseButton from '../../../../app/assets/onboarding/CloseButton.js';
-import Drill_in from '../../../../app/assets/onboarding/Drill_in.js';
+import CloseButton from '../../assets/onboarding/CloseButton';
+import Drill_in from '../../assets/onboarding/Drill_in';
 
 const AddSchedule = ({ navigation }) => {
   const [selectedTime, setSelectedTime] = useState('');

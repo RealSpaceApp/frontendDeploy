@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Switch, Dimensions, TouchableWithoutFeedback, Image } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import NavBar from '../../components/navbar/NavBar';
-import photo from '../../../../app/assets/pictures/photo3.png'
+import photo from '../../assets/pictures/photo3.png'
 
 const { width, height } = Dimensions.get('window');
 

@@ -12,7 +12,7 @@ import { SvgXml } from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-import SettingsIcon from '../../../../app/assets/profile/SettingsIcon.js'
+import SettingsIcon from '../../assets/profile/SettingsIcon'
 
 const scheduleData = [
   {
@@ -35,7 +35,7 @@ const scheduleData = [
   },
 ];
 
-const photo = require('../../../../app/assets/pictures/photo2.png');
+const photo = require('../../assets/pictures/photo2.png');
 
 const LandingPageProfile = ({ navigation }) => {
   const [selected, setSelected] = useState(false);

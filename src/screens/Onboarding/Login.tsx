@@ -7,8 +7,8 @@ import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/nati
 import { RootStackParamList } from 'types/navigation';
 import ActionButtonGreen from '@components/events/ActionButtonGreen';
 
-import Stars1 from 'assets/onboarding/Stars1.js';
-import Apple from 'assets/onboarding/Apple.js';
+import Stars1 from 'assets/onboarding/Stars1';
+import Apple from 'assets/onboarding/Apple';
 
 GoogleSignin.configure({
   webClientId: '613996156544-390fbjusqhr7j2mv4fljki69u55je212.apps.googleusercontent.com', // Your OAuth 2.0 client ID

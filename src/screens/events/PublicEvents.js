@@ -109,7 +109,7 @@ const PublicEvents = () => {
         attending={item.reaction || 'attend'}
         creator={false}
         name={userProfile.name || 'Creator name'}
-        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../../../app/assets/pictures/photo7.png')}
+        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../assets/pictures/photo7.png')}
         eventId={item.id}
         addNotes={item.allow_notes}
         eventTitle={item.title}

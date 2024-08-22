@@ -1,18 +1,18 @@
 export const friendsData = [
-  { id: 1, name: 'Urban Explorers', photo: require('../../../../app/assets/pictures/photo2.png') },
-  { id: 2, name: 'Weekend Warriors', photo: require('../../../../app/assets/pictures/circle2.jpg') },
-  { id: 3, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle3.jpg') },
-  { id: 4, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle4.png') },
-  { id: 5, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle5.png') },
-  { id: 6, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle6.png') },
-  { id: 7, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle7.png') },
+  { id: 1, name: 'Urban Explorers', photo: require('../../assets/pictures/photo2.png') },
+  { id: 2, name: 'Weekend Warriors', photo: require('../../assets/pictures/circle2.jpg') },
+  { id: 3, name: 'Flex Fam', photo: require('../../assets/pictures/circle3.jpg') },
+  { id: 4, name: 'Flex Fam', photo: require('../../assets/pictures/circle4.png') },
+  { id: 5, name: 'Flex Fam', photo: require('../../assets/pictures/circle5.png') },
+  { id: 6, name: 'Flex Fam', photo: require('../../assets/pictures/circle6.png') },
+  { id: 7, name: 'Flex Fam', photo: require('../../assets/pictures/circle7.png') },
 ];
 
 export const friendEventData = [
   {
     id: 1,
     creator: false,
-    photo: require('../../../../app/assets/pictures/circle2.jpg'),
+    photo: require('../../assets/pictures/circle2.jpg'),
     username: "Darrell Steward",
     name: "Art Exhibition",
     location: "Seoul",
@@ -27,7 +27,7 @@ export const friendEventData = [
     attending: true,
     creator: false,
     addNotes: true,
-    photo: require('../../../../app/assets/pictures/eventImage2.jpg'),
+    photo: require('../../assets/pictures/eventImage2.jpg'),
     username: "Dianne Russell",
     name: "Dinner at Le Blanc",
     location: "Florida",
@@ -39,7 +39,7 @@ export const friendEventData = [
   {
     id: 3,
     creator: false,
-    photo: require('../../../../app/assets/pictures/eventImage3.jpg'),
+    photo: require('../../assets/pictures/eventImage3.jpg'),
     username: "Cody Fisher",
     name: "Evening Dining ",
     time: "Tues, 24th Jan, 07:00 PM",

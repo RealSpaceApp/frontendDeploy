@@ -6,9 +6,9 @@ import FriendCardProfilePage from '../../components/profile/FriendCardProfilePag
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
-import WhiteArrow from '../../../../app/assets/onboarding/WhiteArrow.js';
-import Settings from '../../../../app/assets/circles/Settings.js';
-import Location from '../../../../app/assets/events/Location.js';
+import WhiteArrow from '../../assets/onboarding/WhiteArrow';
+import Settings from '../../assets/circles/Settings';
+import Location from '../../assets/events/Location';
 import EventsCard from '../../components/events/cards/EventsCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -214,7 +214,7 @@ const LandingPageProfile = () => {
       attending={'attend'}
       creator={false}
       name={'Creator name'}
-      photo={require('../../../../app/assets/pictures/photo7.png')}
+      photo={require('../../assets/pictures/photo7.png')}
       eventId={item.id}
       addNotes={true}
       eventTitle={item.title}

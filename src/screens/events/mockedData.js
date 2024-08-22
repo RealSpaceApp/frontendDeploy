@@ -1,18 +1,18 @@
 export const friendsData = [
-  { id: 1, name: 'Urban Explorers', photo: require('../../../../app/assets/pictures/photo2.png') },
-  { id: 2, name: 'Weekend Warriors', photo: require('../../../../app/assets/pictures/circle2.jpg') },
-  { id: 3, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle3.jpg') },
-  { id: 4, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle4.png') },
-  { id: 5, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle5.png') },
-  { id: 6, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle6.png') },
-  { id: 7, name: 'Flex Fam', photo: require('../../../../app/assets/pictures/circle7.png') },
+  { id: 1, name: 'Urban Explorers', photo: require('../../assets/pictures/photo2.png') },
+  { id: 2, name: 'Weekend Warriors', photo: require('../../assets/pictures/circle2.jpg') },
+  { id: 3, name: 'Flex Fam', photo: require('../../assets/pictures/circle3.jpg') },
+  { id: 4, name: 'Flex Fam', photo: require('../../assets/pictures/circle4.png') },
+  { id: 5, name: 'Flex Fam', photo: require('../../assets/pictures/circle5.png') },
+  { id: 6, name: 'Flex Fam', photo: require('../../assets/pictures/circle6.png') },
+  { id: 7, name: 'Flex Fam', photo: require('../../assets/pictures/circle7.png') },
 ];
 
 export const friendEventData = [
   {
     id: 1,
     creator: false,
-    photo: require('../../../../app/assets/pictures/photo5.png'),
+    photo: require('../../assets/pictures/photo5.png'),
     name: "Darrell Steward",
     eventTitle: "Art Exhibition",
     time: "Tues, 24th Jan, 07:00 PM",
@@ -23,7 +23,7 @@ export const friendEventData = [
     attending: true,
     creator: false,
     addNotes: true,
-    photo: require('../../../../app/assets/pictures/photo.png'),
+    photo: require('../../assets/pictures/photo.png'),
     name: "Dianne Russell",
     eventTitle: "Dinner at Le Blanc",
     time: "Tues, 24th Jan, 07:00 PM",
@@ -32,7 +32,7 @@ export const friendEventData = [
   {
     id: 3,
     creator: false,
-    photo: require('../../../../app/assets/pictures/photo6.png'),
+    photo: require('../../assets/pictures/photo6.png'),
     name: "Cody Fisher",
     eventTitle: "Evening Dining ",
     time: "Tues, 24th Jan, 07:00 PM",
@@ -43,7 +43,7 @@ export const friendEventData = [
     attending: false,
     creator: false,
     addNotes: true,
-    photo: require('../../../../app/assets/pictures/photo7.png'),
+    photo: require('../../assets/pictures/photo7.png'),
     name: "Wade Warren",
     eventTitle: "Networking",
     time: "Tues, 24th Jan, 07:00 PM",

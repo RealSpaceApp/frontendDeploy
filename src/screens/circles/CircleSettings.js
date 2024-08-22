@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Switch } from 'react-native';
 import NavBar from '../../components/navbar/NavBar';
 import { SvgXml } from 'react-native-svg';
-import Arrow from '../../../../app/assets/onboarding/Arrow.js';
+import Arrow from '../../assets/onboarding/Arrow';
 
 const CircleSettings = ({ navigation }) => {
   const [allDay, setAllDay] = useState(true);

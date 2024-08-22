@@ -5,13 +5,13 @@ import { themes } from '../profile/Themes2';
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
-import WhiteArrow from '../../../../app/assets/onboarding/WhiteArrow.js';
-import Settings from '../../../../app/assets/circles/Settings.js';
-import Location from '../../../../app/assets/events/Location.js';
+import WhiteArrow from '../../assets/onboarding/WhiteArrow';
+import Settings from '../../assets/circles/Settings';
+import Location from '../../assets/events/Location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const photo = require('../../../../app/assets/pictures/circlebg.jpg');
+const photo = require('../../assets/pictures/circlebg.jpg');
 
 const CircleProfilePreview = ({ navigation }) => {
   const [userData] = useState({

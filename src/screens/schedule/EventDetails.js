@@ -2,13 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import NavBar from '../../components/navbar/NavBar';
 import { SvgXml } from 'react-native-svg';
-import Arrow from '../../../../app/assets/onboarding/Arrow.js';
-import Clock from '../../../../app/assets/events/Clock.js';
-import photo from '../../../../app/assets/pictures/photo6.png';
-import image from '../../../../app/assets/pictures/eventImage1.jpg';
+import Arrow from '../../assets/onboarding/Arrow';
+import Clock from '../../assets/events/Clock';
+import photo from '../../assets/pictures/photo6.png';
+import image from '../../assets/pictures/eventImage1.jpg';
 import Tags from '../../components/events/cards/Tags';
 import { useNavigation } from '@react-navigation/native';
-import Location from '../../../../app/assets/events/Location.js';
+import Location from '../../assets/events/Location';
 
 const EventDetails = ({ route }) => {
   const { name, eventTitle, time, text, location, creator } = route.params;

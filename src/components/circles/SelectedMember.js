@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import friendsData from '../../screens/friends/FriendsList';
-import RemoveSelection from '../../../../app/assets/circles/RemoveSelection.js';
+import RemoveSelection from '../../assets/circles/RemoveSelection';
 import { SvgXml } from 'react-native-svg';
 
 const SelectedMember = ({ selectedItems, toggleSelectedItem }) => {

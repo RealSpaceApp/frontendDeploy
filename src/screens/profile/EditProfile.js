@@ -6,7 +6,7 @@ import { SvgXml } from 'react-native-svg';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'react-native-image-picker';
-import Edit from '../../../../app/assets/profile/Edit.js';
+import Edit from '../../assets/profile/Edit';
 import { useFocusEffect } from '@react-navigation/native';
 
 const EditProfile = ({ navigation }) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Text, TouchableOpacity, Alert } from 'react-native';
 import EventsCard from '../../components/events/cards/EventsCard';
 import { SvgXml } from 'react-native-svg';
-import Notification from '../../../../app/assets/events/Notification.js';
+import Notification from '../../assets/events/Notification';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -128,7 +128,7 @@ const FriendsEvents = () => {
         attending={item.reaction || 'attend'}
         creator={false}
         name={userProfile.name || 'Creator name'}
-        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../../../app/assets/pictures/photo7.png')}
+        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../assets/pictures/photo7.png')}
         eventId={item.id}
         addNotes={item.allow_notes}
         eventTitle={item.title}

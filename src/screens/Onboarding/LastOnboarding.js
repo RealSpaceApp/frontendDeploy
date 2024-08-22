@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import FinalOnboarding from '../../../../app/assets/onboarding/FinalOnboarding.js';
+import FinalOnboarding from '../../assets/onboarding/FinalOnboarding';
 import ActionButtonGreen from '../../components/events/ActionButtonGreen';
 
 const LastOnboarding = ({ navigation }) => {

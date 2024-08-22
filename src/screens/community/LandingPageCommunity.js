@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Img2 from '../../../../app/assets/community/Img2.js';
-import Img from '../../../../app/assets/community/Img.js';
+import Img2 from '../../assets/community/Img2';
+import Img from '../../assets/community/Img';
 import NavBar from '../../components/navbar/NavBar';
 
 const LandingPageCommunity = ({ navigation }) => {

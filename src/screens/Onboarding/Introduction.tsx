@@ -5,12 +5,12 @@ import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/nati
 
 import { RootStackParamList } from 'types/navigation';
 
-import Community from 'assets/onboarding/Community.js';
-import Pagination from 'assets/onboarding/Pagination.js';
-import RealEvents from 'assets/onboarding/RealEvents.js';
-import handshakke from 'assets/onboarding/hand shakke.js';
-import Pagination2 from 'assets/onboarding/Pagination2.js';
-import Pagination3 from 'assets/onboarding/Pagination3.js';
+import Community from 'assets/onboarding/Community';
+import Pagination from 'assets/onboarding/Pagination';
+import RealEvents from 'assets/onboarding/RealEvents';
+import handshakke from 'assets/onboarding/hand shakke';
+import Pagination2 from 'assets/onboarding/Pagination2';
+import Pagination3 from 'assets/onboarding/Pagination3';
 
 type IntroductionProps = NativeStackScreenProps<
   RootStackParamList,

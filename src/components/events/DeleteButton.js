@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import Delete from '../../../../app/assets/events/Delete.js'
+import Delete from '../../assets/events/Delete'
 
 const CreatingButton = ({ onPress }) => {
   return (

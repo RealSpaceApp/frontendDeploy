@@ -9,7 +9,7 @@ import { RootStackParamList } from 'types/navigation';
 import NextButton from '@components/events/NextButton';
 import GoBackButton from '@components/events/GoBackButton';
 
-import Drill_down from 'assets/onboarding/Drill_down.js';
+import Drill_down from 'assets/onboarding/Drill_down';
 
 type PhoneRegisterProps = NativeStackScreenProps<
   RootStackParamList,

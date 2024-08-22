@@ -3,14 +3,14 @@ import { View, StyleSheet, TouchableOpacity, Text, TextInput, Image, Modal, Aler
 import { SvgXml } from 'react-native-svg';
 import LocationModal from '../../components/events/modals/LocationModal';
 import TimezoneModal from '../../components/events/modals/TimezoneModal';
-import PopupMenuIndicator from '../../../../app/assets/events/PopupMenuIndicator.js';
-import CoverPhoto from '../../../../app/assets/circles/CoverPhoto.js';
+import PopupMenuIndicator from '../../assets/events/PopupMenuIndicator';
+import CoverPhoto from '../../assets/circles/CoverPhoto';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'react-native-image-picker';
 import FormData from 'form-data';
-import photo from '../../../../app/assets/pictures/photo3.png';
-import BgPhoto from '../../../../app/assets/pictures/interest2.jpg';
+import photo from '../../assets/pictures/photo3.png';
+import BgPhoto from '../../assets/pictures/interest2.jpg';
 import Navbar from '../../components/navbar/NavBar';
 
 const CreateCircle = ({ navigation, route }) => {

@@ -4,9 +4,9 @@ import FriendCard from './FriendCard';
 
 const FriendList = () => {
   const friends = [
-    { id: 1, name: 'Sai sumith', photo: require('../../../../app/assets/pictures/photo2.png'), friends: true },
-    { id: 2, name: 'Floyd Miles', photo: require('../../../../app/assets/pictures/photo.png'), friends: false },
-    { id: 3, name: 'Robert Fox', photo: require('../../../../app/assets/pictures/photo3.png'), friends: false },
+    { id: 1, name: 'Sai sumith', photo: require('../../assets/pictures/photo2.png'), friends: true },
+    { id: 2, name: 'Floyd Miles', photo: require('../../assets/pictures/photo.png'), friends: false },
+    { id: 3, name: 'Robert Fox', photo: require('../../assets/pictures/photo3.png'), friends: false },
   ]
   return (
     <View style={styles.container}>

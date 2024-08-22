@@ -78,7 +78,7 @@ const CircleEvents = () => {
         attending={'attend'}
         creator={false}
         name={userProfile.name || 'Creator name'}
-        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../../../app/assets/pictures/photo7.png')}
+        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../assets/pictures/photo7.png')}
         eventId={item.id}
         addNotes={true}
         eventTitle={item.title}

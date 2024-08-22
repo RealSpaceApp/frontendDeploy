@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Arrow from '../../../../app/assets/onboarding/Arrow.js';
+import Arrow from '../../assets/onboarding/Arrow';
 import { SvgXml } from 'react-native-svg';
 
 const NextButton = ({ onPress }) => {

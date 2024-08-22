@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './ModalStyles';
-import Search from '../../../../../app/assets/events/Search.js';
+import Search from '../../../assets/events/Search';
 import { SvgXml } from 'react-native-svg';
 
 const TimezoneModal = ({ visible, onClose }) => {

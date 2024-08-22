@@ -11,7 +11,7 @@ import NextButton from '@components/events/NextButton';
 import GoBackButton from '@components/events/GoBackButton';
 import ProgressBar from '@components/events/ProgressBar';
 
-import Clear from 'assets/onboarding/Clear.js';
+import Clear from 'assets/onboarding/Clear';
 
 type ProfileBioProps = NativeStackScreenProps<
   RootStackParamList,

@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 
 const TextSFPro = ({ children, style }) => {
   let [fontsLoaded] = useFonts({
-    'SFProDisplay-Regular': require('../../../../app/assets/fonts/SF-Pro-Display-Regular.otf'),
+    'SFProDisplay-Regular': require('../../assets/fonts/SF-Pro-Display-Regular.otf'),
   });
 
   // console.log('Font Loaded:', fontsLoaded);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
-import Checked from '../../../../../app/assets/friends/Checked.js';
+import Checked from '../../../assets/friends/Checked';
 
 const Tags = ({ text, onPress, checked }) => {
   const colorMap = {
