@@ -1,30 +1,39 @@
-# Resolve react_native_pods.rb with node to allow for hoisting
+# Definindo a plataforma mínima para o iOS
+platform :ios, '12.0'
+
+# Configuração do Podfile para resolver o caminho do react_native_pods.rb
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
     "react-native/scripts/react_native_pods.rb",
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, '12.0'  # Alvo de implantação atualizado para iOS 12.0
-
 prepare_react_native_project!
 
-use_modular_headers!  # Usando headers modulares
+use_modular_headers! # Utiliza headers modulares
 
+# Configuração do linkage
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym  # Frameworks configurados, se necessário
+  use_frameworks! :linkage => linkage.to_sym
 end
 
+# Alvo principal do aplicativo
 target 'app' do
   config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # Caminho absoluto para o root da aplicação.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
+  # Adicionando a equipe de desenvolvimento para assinatura de código
+  project 'app.xcodeproj'
+  install! 'cocoapods', :deterministic_uuids => false
+  target.build_configurations.each do |config|
+    config.build_settings['DEVELOPMENT_TEAM'] = '375WVRSY2Q'
+  end
 
   target 'appTests' do
     inherit! :complete
@@ -32,11 +41,24 @@ target 'app' do
   end
 
   post_install do |installer|
-    # Configuração de pós-instalação
-    react_native_post_install(installer)
+    # Ajustando a meta de implantação para todos os Pods
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      end
+    end
+
     # Excluindo arquiteturas não suportadas para simuladores
     installer.pods_project.build_configurations.each do |config|
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
     end
+
+    # Configurações pós-instalação do React Native
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
   end
 end
