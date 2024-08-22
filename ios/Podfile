@@ -1,6 +1,9 @@
 # Definindo a plataforma mínima para o iOS
 platform :ios, '12.0'
 
+# Configuração global de instalação para o CocoaPods
+install! 'cocoapods', :deterministic_uuids => false
+
 # Configuração do Podfile para resolver o caminho do react_native_pods.rb
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -29,8 +32,6 @@ target 'app' do
   )
 
   # Adicionando a equipe de desenvolvimento para assinatura de código
-  project 'app.xcodeproj'
-  install! 'cocoapods', :deterministic_uuids => false
   target.build_configurations.each do |config|
     config.build_settings['DEVELOPMENT_TEAM'] = '375WVRSY2Q'
   end
