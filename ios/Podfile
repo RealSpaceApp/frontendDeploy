@@ -31,11 +31,6 @@ target 'app' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # Adicionando a equipe de desenvolvimento para assinatura de código
-  target.build_configurations.each do |config|
-    config.build_settings['DEVELOPMENT_TEAM'] = '375WVRSY2Q'
-  end
-
   target 'appTests' do
     inherit! :complete
     # Pods para testes
@@ -52,6 +47,13 @@ target 'app' do
     # Excluindo arquiteturas não suportadas para simuladores
     installer.pods_project.build_configurations.each do |config|
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+    end
+
+    # Adicionando a equipe de desenvolvimento para assinatura de código
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['DEVELOPMENT_TEAM'] = '375WVRSY2Q'
+      end
     end
 
     # Configurações pós-instalação do React Native
