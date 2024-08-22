@@ -11,8 +11,8 @@ target 'app' do
   use_react_native!(
     :path => config[:reactNativePath],
     :hermes_enabled => false,
-    :fabric_enabled => config[:fabricEnabled],
-    :codegen_disabled => false
+    :fabric_enabled => config[:fabricEnabled]
+    # Removido o :codegen_disabled, que não é uma opção válida
   )
 
   pod 'Firebase/Core', :modular_headers => true
