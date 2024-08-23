@@ -1,27 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import EventsCard from '../../components/events/cards/EventsCard';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-
+import axiosInstance from '../../config/AxiosInstance';
+      
 const CircleEvents = () => {
   const [eventData, setEventData] = useState([]);
   const [userProfiles, setUserProfiles] = useState({});
 
   const fetchEventData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:8080/event/feed/circles', {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get('/event/feed/circles');
 
       if (response.status === 202) {
         console.log(response.data)
@@ -39,18 +27,7 @@ const CircleEvents = () => {
 
   const fetchUserProfile = async (userId) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get(`http://localhost:8080/user/profile/${userId}`, {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get(`/user/profile/${userId}`);
 
       if (response.status === 202) {
 
@@ -78,7 +55,7 @@ const CircleEvents = () => {
         attending={'attend'}
         creator={false}
         name={userProfile.name || 'Creator name'}
-        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../assets/pictures/photo7.png')}
+        photo={userProfile.avatar ? { uri: userProfile.avatar } : require('../../../assets/pictures/photo7.png')}
         eventId={item.id}
         addNotes={true}
         eventTitle={item.title}
@@ -143,6 +120,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#2d2d2d',
   },
   buttonText: {
     color: '#FFFFFF',
@@ -178,11 +156,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 20
+    marginBottom: 20,
+    color: '#2d2d2d',
   },
   modalTitleText: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#2d2d2d',
   },
   circleListItem: {
     flexDirection: 'row',

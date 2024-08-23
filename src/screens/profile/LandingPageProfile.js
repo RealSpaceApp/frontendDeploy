@@ -8,34 +8,11 @@ import { themes } from './Themes2';
 import FriendCardProfilePage from '../../components/profile/FriendCardProfilePage';
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
+import Search from '../../../assets/events/Search';
 import { SvgXml } from 'react-native-svg';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-import SettingsIcon from '../../assets/profile/SettingsIcon'
-
-const scheduleData = [
-  {
-    id: 1,
-    title: "Morning",
-    time: "10:00 - 10:30 AM",
-    text: "I usually travel on public transport to my work, so you can call me then"
-  },
-  {
-    id: 2,
-    title: "Afternoon",
-    time: "03:00 - 05:30 PM",
-    text: "My work is done usually at around 3, thats a good time to chill !  "
-  },
-  {
-    id: 3,
-    title: "Night",
-    time: "10:00 PM",
-    text: "I’m available for calls after 10 pm"
-  },
-];
-
-const photo = require('../../assets/pictures/photo2.png');
+import SettingsIcon from '../../../assets/profile/SettingsIcon'
+import axiosInstance from '../../config/AxiosInstance';
 
 const LandingPageProfile = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
@@ -54,14 +31,7 @@ const LandingPageProfile = ({ navigation }) => {
 
   const fetchData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-      const axiosInstance = axios.create({
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
-      const id = '2ca14736-12a1-4ac1-8fba-bd639be71b1a';
-      const response = await axiosInstance.get(`http://localhost:8080/user/profile/`);
+      const response = await axiosInstance.get(`/user/profile/`);
       console.debug('LandingPageProfile Profile Response:', response.data);
 
       setUserData({
@@ -81,13 +51,7 @@ const LandingPageProfile = ({ navigation }) => {
 
   const fetchFriends = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-      const axiosInstance = axios.create({
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
-      const response = await axiosInstance.get(`http://localhost:8080/friends/`);
+      const response = await axiosInstance.get(`/friends/`);
       console.debug('friends list', response.data);
 
       setFriendsData(response.data);
@@ -99,26 +63,31 @@ const LandingPageProfile = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       fetchData();
-    }, [fetchData])
+      fetchFriends();
+    }, [fetchData, fetchFriends])
   );
-
   const theme = themes[userData.theme];
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisibleMuteCalls, setModalVisibleMuteCalls] = useState(false);
   const [modalVisibleRemoveFriend, setModalVisibleRemoveFriend] = useState(false);
   const [modalVisibleMuteEvents, setModalVisibleMuteEvents] = useState(false);
 
-  const toggleSelectedItem = (id) => {
+  const toggleSelectedItem = useCallback((id) => {
     setSelectedItems(prevState => ({
       ...prevState,
       [id]: !prevState[id],
     }));
-  };
+  }, []);
+
 
   const handleFriendProfile = () => {
     const id = '2ca14736-12a1-4ac1-8fba-bd639be71b1a';
     navigation.navigate('FriendsPageProfile', { id });
   };
+
+  const filteredFriendsData = friendsData.filter(friend =>
+    friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const renderHeader = () => (
     <View>
@@ -174,10 +143,11 @@ const LandingPageProfile = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.searchBar}>
-          <AntDesign name="search1" size={20} color="#000" style={styles.searchIcon} />
+          <SvgXml xml={Search} />
           <TextInput
             style={styles.searchInput}
             placeholder="Search"
+            placeholderTextColor="#3C3C434D"
             onChangeText={setSearchTerm}
             value={searchTerm}
           />
@@ -193,13 +163,13 @@ const LandingPageProfile = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      { }
+
       <FlatList
-        data={friendsData}
+        data={filteredFriendsData}
         keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <FriendCardProfilePage
             photo={item.photo}
             name={item.name}
@@ -230,8 +200,8 @@ const LandingPageProfile = ({ navigation }) => {
         }}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Remove friend?</Text>
-            <Text style={styles.modalText}>Once removed you’ll have to meet them again to add them as a friend.</Text>
+            <Text style={styles.modalTitle}>Mute calls?</Text>
+            <Text style={styles.modalText}>You will no longer see their calls.</Text>
             <TouchableOpacity
 
               onPress={() => setModalVisibleMuteCalls(!modalVisibleMuteCalls)}>
@@ -452,6 +422,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginLeft: 5,
+    color: '#2d2d2d',
   },
   searchIcon: {
     marginLeft: 10,
@@ -510,7 +481,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   bottom: {
-    height: 80,
+    height: 100,
     width: '100%',
   },
   centeredView: {

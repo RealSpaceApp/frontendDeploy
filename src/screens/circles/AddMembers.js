@@ -2,27 +2,27 @@ import { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Switch, Dimensions, TouchableWithoutFeedback, Image } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import NavBar from '../../components/navbar/NavBar';
-import photo from '../../assets/pictures/photo3.png'
+import photo from '../../../assets/pictures/photo3.png'
 
 const { width, height } = Dimensions.get('window');
 
 const AddMembers = ({ navigation }) => {
-  const [allDay, setAllDay] = useState(false);
+    const [allDay, setAllDay] = useState(false);
 
   return (
     <TouchableWithoutFeedback >
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Add member</Text>
-          <View style={styles.headerButtons}>
-            <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-              <Text style={styles.headerButtonText}>Cancel</Text>
-            </TouchableOpacity>
+          <View style={styles.header}>
+            <Text style={styles.title}>Add member</Text>
+            <View style={styles.headerButtons}>
+              <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+                <Text style={styles.headerButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={styles.header2}>
+          <View style={styles.header2}>
 
-          <View style={styles.switchContainer}>
+                <View style={styles.switchContainer}>
             <View style={styles.selectionButton}>
               <Text style={styles.switchText}>Turn on bluetooth</Text>
             </View>
@@ -36,7 +36,7 @@ const AddMembers = ({ navigation }) => {
             />
           </View>
           <Text style={styles.subtitle}>Make sure the other person have join nearby circles enabled on circle section</Text>
-
+        
           <View style={styles.photoContainer}>
             {[...Array(8)].map((_, index) => {
               const radius = 8 + index * 45;
@@ -48,9 +48,9 @@ const AddMembers = ({ navigation }) => {
             })}
             <Image source={photo} style={styles.photo} />
           </View>
-        </View>
+          </View>
 
-        <NavBar />
+      <NavBar />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -62,8 +62,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
     backgroundColor: '#F6F6F6',
   },
-  header: {
-    paddingTop: 60,
+  header: {paddingTop: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     borderRadius: 10,
     zIndex: 10
-  },
+},
   headerButtons: {
     flexDirection: 'row',
   },

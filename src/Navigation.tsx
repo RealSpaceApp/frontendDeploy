@@ -20,6 +20,8 @@ import CommunityTagsScreen from '@screens/Onboarding/CommunityTags';
 import AvailabilityFeatureScreen from '@screens/Onboarding/AvailabilityFeature';
 import AddSchedule from '@screens/Onboarding/AddSchedule';
 import LastOnboarding from '@screens/Onboarding/LastOnboarding';
+//import Onboarding06 from '@screens/Onboarding/Onboarding06';
+//import Onboarding05 from '@screens/Onboarding/Onboarding05';
 {/* Landing Pages */ }
 import LandingPageEvents from '@screens/events/LandingPageEvents';
 import LandingPageCommunity from '@screens/community/LandingPageCommunity';
@@ -75,6 +77,8 @@ const MainNavigator = () => {
         <Stack.Screen name="AvailabilityFeature" component={AvailabilityFeatureScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ headerShown: false }} />
         <Stack.Screen name="LastOnboarding" component={LastOnboarding} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="Onboarding05" component={Onboarding05} options={{ headerShown: false }} />
+        <Stack.Screen name="Onboarding06" component={Onboarding06} options={{ headerShown: false }} /> */}
         {/* Landing Pages */}
 
         <Stack.Screen name="LandingPageEvents" component={LandingPageEvents} options={{ headerShown: true }} />

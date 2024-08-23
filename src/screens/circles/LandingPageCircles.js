@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Switch, TouchableOpacity, Alert } from 'react-native';
-import axios from 'axios';
 import NavBar from '../../components/navbar/NavBar';
 import CirclesCard from '../../components/circles/CirclesCard';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { friendEventData } from './CirclesList';
+import axiosInstance from '../../config/AxiosInstance';
+
 const LandingPageCircles = ({ navigation }) => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [circles, setCircles] = useState(friendEventData);
@@ -14,17 +14,7 @@ const LandingPageCircles = ({ navigation }) => {
   useEffect(() => {
     const fetchCircles = async () => {
       try {
-        const cookie = await AsyncStorage.getItem('access_token');
-        if (!cookie) {
-          console.warn('No access token found');
-          return;
-        }
-
-        const response = await axios.get('http://localhost:8080/circles/joined-circles', {
-          headers: {
-            Cookie: cookie || '',
-          },
-        });
+        const response = await axiosInstance.get('/circles/joined-circles');
 
         if (response.status === 202) {
           console.log("circles")
@@ -68,7 +58,7 @@ const LandingPageCircles = ({ navigation }) => {
         </View>
         <FlatList
           data={circles}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) => (item.id ? item.id.toString() : index.toString())}
           renderItem={({ item }) => (
             <CirclesCard
               id={item.id}

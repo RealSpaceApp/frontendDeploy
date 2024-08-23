@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import EventsCard from '../../components/events/cards/EventsCard';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axiosInstance from '../../config/AxiosInstance';
 
 const Hosting = () => {
   const [eventData, setEventData] = useState([]);
@@ -10,19 +9,8 @@ const Hosting = () => {
 
   const fetchEventNotes = async (events) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
       const updatedEvents = await Promise.all(events.map(async (event) => {
-        const response = await axios.get(`http://localhost:8080/event/${event.id}/all-notes`, {
-          headers: {
-            Cookie: cookie || '',
-          },
-        });
+        const response = await axiosInstance.get(`/event/${event.id}/all-notes`);
 
         if (response.status === 202 || response.status === 200) {
           console.log('ALL NOTES:', response.data);
@@ -42,18 +30,7 @@ const Hosting = () => {
 
   const fetchEventData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:8080/event/feed/hosting', {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get('/event/feed/hosting');
 
       if (response.status === 202) {
         setEventData(response.data);
@@ -74,13 +51,7 @@ const Hosting = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cookie = await AsyncStorage.getItem('access_token');
-        const axiosInstance = axios.create({
-          headers: {
-            Cookie: cookie || '',
-          },
-        });
-        const response = await axiosInstance.get('http://localhost:8080/user/profile');
+        const response = await axiosInstance.get('/user/profile');
         setUserData({
           name: response.data.name
         });
@@ -93,18 +64,12 @@ const Hosting = () => {
 
   const handleDeleteEvent = async (eventId) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
 
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-      const response = await axios.post('http://localhost:8080/event/delete', {
+      const response = await axiosInstance.post('/event/delete', {
         ID: eventId,
       }, {
         headers: {
           'Content-Type': 'application/json',
-          Cookie: cookie || '',
         }
       });
 
@@ -123,7 +88,8 @@ const Hosting = () => {
     <EventsCard
       attending={item.attending}
       creator={true}
-      notes={[{ note: 'Yes ! im up for the meeting, I’ll be 15 min late but i’ll meet you guys this evening for sure !', note_time: '2024-07-10T14:54:17.486Z' }, { note: 'Just order a latte for me !', note_time: '2024-07-10T14:54:17.486Z' }]}
+      //notes={[{ note: 'Yes ! im up for the meeting, I’ll be 15 min late but i’ll meet you guys this evening for sure !', note_time: '2024-07-10T14:54:17.486Z' }, { note: 'Just order a latte for me !', note_time: '2024-07-10T14:54:17.486Z' }]}
+      notes={item.notes}
       eventId={item.id}
       addNotes={item.allow_notes}
       eventTitle={item.title}

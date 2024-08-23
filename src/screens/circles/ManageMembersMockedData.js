@@ -4,14 +4,13 @@ import NavBar from '../../components/navbar/NavBar';
 import NavBarCircles from '../../components/navbar/NavBarCircles';
 import FriendCardProfilePage from '../../components/profile/FriendCardProfilePage';
 import friendsData from '../friends/FriendsList';
-import PopupMenuIndicator from '../../assets/events/PopupMenuIndicator';
-import Info from '../../assets/circles/Info';
+import PopupMenuIndicator from '../../../assets/events/PopupMenuIndicator';
+import Info from '../../../assets/circles/Info';
 import { SvgXml } from 'react-native-svg';
-import Arrow from '../../assets/onboarding/Arrow';
-import Location from '../../assets/events/Location';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import Arrow from '../../../assets/onboarding/Arrow';
+import Location from '../../../assets/events/Location';
 import SelectedMember from '../../components/circles/SelectedMember';
+import axiosInstance from '../../config/AxiosInstance';
 
 const ManageMembers = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
@@ -32,18 +31,7 @@ const ManageMembers = ({ navigation }) => {
 
   const fetchEventData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:8080/event/feed/circles', {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get('/event/feed/circles');
 
       if (response.status === 202) {
         console.log(response.data)
@@ -119,6 +107,7 @@ const ManageMembers = ({ navigation }) => {
             </View>
           </View><TextInput
             style={styles.searchBar}
+            placeholderTextColor="#3C3C434D"
             placeholder="Search"
             onChangeText={setSearchTerm}
             value={searchTerm}
@@ -226,6 +215,7 @@ const ManageMembers = ({ navigation }) => {
             <TextInput
               style={styles.searchBar}
               placeholder="Search"
+              placeholderTextColor="#3C3C434D"
               onChangeText={setSearchTerm}
               value={searchTerm}
             />

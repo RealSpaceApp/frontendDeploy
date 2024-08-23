@@ -4,15 +4,14 @@ import NavBar from '../../components/navbar/NavBar';
 import NavBarCircles from '../../components/navbar/NavBarCircles';
 import FriendCardProfilePage from '../../components/profile/FriendCardProfilePage';
 import friendsData from '../friends/FriendsList';
-import PopupMenuIndicator from '../../assets/events/PopupMenuIndicator';
-import Info from '../../assets/circles/Info';
+import PopupMenuIndicator from '../../../assets/events/PopupMenuIndicator';
+import Info from '../../../assets/circles/Info';
 import { SvgXml } from 'react-native-svg';
-import Arrow from '../../assets/onboarding/Arrow';
-import Location from '../../assets/events/Location';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import Arrow from '../../../assets/onboarding/Arrow';
+import Location from '../../../assets/events/Location';
 import SelectedMember from '../../components/circles/SelectedMember';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import axiosInstance from '../../config/AxiosInstance';
 
 const ManageMembers = () => {
   const route = useRoute();
@@ -37,18 +36,7 @@ const ManageMembers = () => {
 
   const fetchEventData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:8080/event/feed/circles', {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get('/event/feed/circles');
 
       if (response.status === 202) {
         console.log(response.data);
@@ -64,18 +52,7 @@ const ManageMembers = () => {
 
   const fetchUserProfile = async (userId) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get(`http://localhost:8080/user/profile/${userId}`, {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get(`/user/profile/${userId}`);
 
       if (response.status === 202) {
         setProfiles(prevProfiles => ({
@@ -93,18 +70,7 @@ const ManageMembers = () => {
 
   const fetchCircleMembers = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get(`http://localhost:8080/circles/${id}/members`, {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.get(`/circles/${id}/members`);
 
       if (response.status === 202) {
         const membersData = response.data || [];
@@ -149,17 +115,7 @@ const ManageMembers = () => {
 
   const removeMember = async (memberId) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.post(`http://localhost:8080/circles/${id}/remove-member/${memberId}`, {}, {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.post(`/circles/${id}/remove-member/${memberId}`);
 
       if (response.status === 202) {
         Alert.alert('Success', 'Member removed successfully.');
@@ -175,17 +131,7 @@ const ManageMembers = () => {
 
   const makeModerator = async (memberId) => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.post(`http://localhost:8080/circles/${id}/make-moderator/${memberId}`, {}, {
-        headers: {
-          Cookie: cookie || '',
-        },
-      });
+      const response = await axiosInstance.post(`/circles/${id}/make-moderator/${memberId}`);
 
       if (response.status === 202) {
         Alert.alert('Success', 'Member is now a moderator.');
@@ -240,6 +186,7 @@ const ManageMembers = () => {
           </View><TextInput
             style={styles.searchBar}
             placeholder="Search"
+            placeholderTextColor="#3C3C434D"
             onChangeText={setSearchTerm}
             value={searchTerm}
           />
@@ -362,6 +309,7 @@ const ManageMembers = () => {
             <TextInput
               style={styles.searchBar}
               placeholder="Search"
+              placeholderTextColor="#3C3C434D"
               onChangeText={setSearchTerm}
               value={searchTerm}
             />
@@ -428,6 +376,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     alignSelf: 'flex-start',
+    color: '#2d2d2d',
   },
   profileContainer: {
     gap: 12,
@@ -496,7 +445,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 15,
     marginVertical: 15,
-    margin: 'auto'
+    margin: 'auto',
+    color: '#2d2d2d',
   },
   mainPhotoLabel: {
     color: 'white',
@@ -610,7 +560,8 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    color: '#2d2d2d',
   },
   modalBackground2: {
     backgroundColor: '#00000066',

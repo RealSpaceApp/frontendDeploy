@@ -3,15 +3,14 @@ import { View, StyleSheet, TouchableOpacity, Text, TextInput, Image, Modal, Aler
 import { SvgXml } from 'react-native-svg';
 import LocationModal from '../../components/events/modals/LocationModal';
 import TimezoneModal from '../../components/events/modals/TimezoneModal';
-import PopupMenuIndicator from '../../assets/events/PopupMenuIndicator';
-import CoverPhoto from '../../assets/circles/CoverPhoto';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import PopupMenuIndicator from '../../../assets/events/PopupMenuIndicator';
+import CoverPhoto from '../../../assets/circles/CoverPhoto';
 import * as ImagePicker from 'react-native-image-picker';
 import FormData from 'form-data';
-import photo from '../../assets/pictures/photo3.png';
-import BgPhoto from '../../assets/pictures/interest2.jpg';
+import photo from '../../../assets/pictures/photo3.png';
+import BgPhoto from '../../../assets/pictures/interest2.jpg';
 import Navbar from '../../components/navbar/NavBar';
+import axiosInstance from '../../config/AxiosInstance';
 
 const CreateCircle = ({ navigation, route }) => {
   const { id } = route.params || {};
@@ -48,17 +47,8 @@ const CreateCircle = ({ navigation, route }) => {
     if (id) {
       const fetchEventDetails = async () => {
         try {
-          const cookie = await AsyncStorage.getItem('access_token');
-          if (!cookie) {
-            console.warn('No access token found');
-            return;
-          }
 
-          const response = await axios.get(`http://localhost:8080/circles/${id}`, {
-            headers: {
-              Cookie: cookie || '',
-            },
-          });
+          const response = await axiosInstance.get(`/circles/${id}`);
 
           if (response.status === 202) {
             const event = response.data;
@@ -81,12 +71,6 @@ const CreateCircle = ({ navigation, route }) => {
 
   const handleCreateCircle = async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
       const formData = new FormData();
       formData.append('name', title);
       formData.append('description', description);
@@ -109,18 +93,16 @@ const CreateCircle = ({ navigation, route }) => {
       let response;
       if (id) {
         // Update existing circle
-        response = await axios.post(`http://localhost:8080/circles/${id}/update`, formData, {
+        response = await axiosInstance.post(`/circles/${id}/update`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Cookie: cookie || '',
           },
         });
       } else {
         // Create new circle
-        response = await axios.post('http://localhost:8080/circles/create', formData, {
+        response = await axiosInstance.post('/circles/create', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Cookie: cookie || '',
           },
         });
       }
@@ -181,6 +163,7 @@ const CreateCircle = ({ navigation, route }) => {
           </TouchableOpacity>
           <TextInput
             style={styles.inputTitle}
+            placeholderTextColor="#3C3C434D"
             placeholder="Circle Name"
             value={title}
             onChangeText={(text) => setTitle(text)}
@@ -190,6 +173,7 @@ const CreateCircle = ({ navigation, route }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter Description"
+          placeholderTextColor="#3C3C434D"
           multiline
           numberOfLines={6}
           value={description}
@@ -231,7 +215,17 @@ const CreateCircle = ({ navigation, route }) => {
         <TimezoneModal visible={timezoneModalVisible} onClose={closeTimezoneModal} />
       </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('CircleProfilePreview')}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('CircleProfilePreview', {
+          title,
+          description,
+          selectedImageURI,
+          location,
+          gradient,
+          tags
+        })}
+      >
         <Text style={styles.textAdd}>Preview profile</Text>
       </TouchableOpacity>
 
@@ -323,11 +317,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlignVertical: 'top',
     marginHorizontal: 16,
+    color: '#2d2d2d',
   },
   inputTitle: {
     fontSize: 20,
     padding: 20,
     fontWeight: 'bold',
+    color: '#2d2d2d',
   },
   switchContainer: {
     flexDirection: 'row',

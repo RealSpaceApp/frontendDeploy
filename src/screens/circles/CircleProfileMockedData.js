@@ -6,15 +6,14 @@ import FriendCardProfilePage from '../../components/profile/FriendCardProfilePag
 import friendsData from '../friends/FriendsList';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
-import WhiteArrow from '../../assets/onboarding/WhiteArrow';
-import Settings from '../../assets/circles/Settings';
-import Location from '../../assets/events/Location';
+import WhiteArrow from '../../../assets/onboarding/WhiteArrow';
+import Settings from '../../../assets/circles/Settings';
+import Location from '../../../assets/events/Location';
 import EventsCard from '../../components/events/cards/EventsCard';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { Dropdown } from 'react-native-element-dropdown';
+import axiosInstance from '../../config/AxiosInstance';
 
-const photo = require('../../assets/pictures/circlebg.jpg');
+const photo = require('../../../assets/pictures/circlebg.jpg');
 
 const LandingPageProfile = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
@@ -36,14 +35,7 @@ const LandingPageProfile = ({ navigation }) => {
 
   const fetchEventData = useCallback(async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:8080/event/feed/circles', {
+      const response = await axiosInstance.get('/event/feed/circles', {
         headers: {
           Cookie: cookie || '',
         },
@@ -151,7 +143,7 @@ const LandingPageProfile = ({ navigation }) => {
       attending={'attend'}
       creator={false}
       name={'Creator name'}
-      photo={require('../../assets/pictures/photo7.png')}
+      photo={require('../../../assets/pictures/photo7.png')}
       eventId={item.id}
       addNotes={true}
       eventTitle={item.title}
@@ -222,6 +214,7 @@ const LandingPageProfile = ({ navigation }) => {
               placeholder="Search"
               onChangeText={setSearchTerm}
               value={searchTerm}
+              placeholderTextColor="#3C3C434D"
             />
             <FlatList
               data={filteredMembers}

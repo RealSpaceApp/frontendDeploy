@@ -19,9 +19,9 @@ const CircleEvents = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.circlesContainer}>
-          <Image source={require('../../assets/pictures/photo5.png')} style={[styles.circle, styles.circle1]} />
-          <Image source={require('../../assets/pictures/photo6.png')} style={[styles.circle, styles.circle2]} />
-          <Image source={require('../../assets/pictures/photo7.png')} style={[styles.circle, styles.circle3]} />
+          <Image source={require('../../../assets/pictures/photo5.png')} style={[styles.circle, styles.circle1]} />
+          <Image source={require('../../../assets/pictures/photo6.png')} style={[styles.circle, styles.circle2]} />
+          <Image source={require('../../../assets/pictures/photo7.png')} style={[styles.circle, styles.circle3]} />
         </View>
         <TouchableOpacity onPress={openModal} style={styles.button}>
           <Text style={styles.buttonText}>All Circles</Text>
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#2d2d2d',
   },
   button: {
     paddingVertical: 8,
