@@ -1,62 +1,35 @@
-# Definindo a plataforma mínima para o iOS
-platform :ios, '12.0'
-
-# Configuração global de instalação para o CocoaPods
-install! 'cocoapods', :deterministic_uuids => false
-
-# Configuração do Podfile para resolver o caminho do react_native_pods.rb
+# Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
     "react-native/scripts/react_native_pods.rb",
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
+platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-use_modular_headers! # Utiliza headers modulares
-
-# Configuração do linkage
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
 
-# Alvo principal do aplicativo
 target 'app' do
   config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],
+    # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   target 'appTests' do
     inherit! :complete
-    # Pods para testes
+    # Pods for testing
   end
 
   post_install do |installer|
-    # Ajustando a meta de implantação para todos os Pods
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-      end
-    end
-
-    # Excluindo arquiteturas não suportadas para simuladores
-    installer.pods_project.build_configurations.each do |config|
-      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-    end
-
-    # Adicionando a equipe de desenvolvimento para assinatura de código
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['DEVELOPMENT_TEAM'] = '375WVRSY2Q'
-      end
-    end
-
-    # Configurações pós-instalação do React Native
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
       config[:reactNativePath],
