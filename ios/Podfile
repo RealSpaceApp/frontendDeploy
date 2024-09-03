@@ -23,8 +23,8 @@ target 'app' do
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
-    :hermes_enabled => true 
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    :hermes_enabled => true # Adicione a vírgula para separar argumentos
   )
 
   target 'appTests' do
@@ -37,7 +37,7 @@ target 'app' do
     react_native_post_install(
       installer,
       config[:reactNativePath],
-      :mac_catalyst_enabled => false,
+      :mac_catalyst_enabled => false
       # :ccache_enabled => true
     )
   end
