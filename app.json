@@ -1,4 +1,16 @@
 {
-  "name": "realspace3",
-  "displayName": "realspace3"
+  "name": "app",
+  "displayName": "app",
+  "expo": {
+    "name": "MyApp",
+    "slug": "myapp",
+    "ios": {
+      "bundleIdentifier": "com.suaempresa.myapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0d751011-08d8-443a-8130-f44eb5e7cc42"
+      }
+    }
+  }
 }
