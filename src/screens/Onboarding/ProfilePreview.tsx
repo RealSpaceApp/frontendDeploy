@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { RootStackParamList } from 'types/navigation';
-// import cover from 'assets/pictures/userCover.jpg';
+import axiosInstance from '../../config/AxiosInstance';
 
 const { width } = Dimensions.get('window');
 
@@ -31,13 +29,7 @@ const ProfilePreviewScreen: React.FC<ProfilePreviewProps> = ({ navigation }) => 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cookie = await AsyncStorage.getItem('access_token');
-        const axiosInstance = axios.create({
-          headers: {
-            Cookie: cookie || '',
-          },
-        });
-        const response = await axiosInstance.get(`http://localhost:8080/user/profile`);
+        const response = await axiosInstance.get(`/user/profile`);
         console.debug('Profile Preview Response:', response.data);
 
         setUserData({
@@ -108,13 +100,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6F0EA',
   },
   msgContainer: {
-    width: '120%',
+    width: '100%',
     backgroundColor: '#FFFFFF',
     padding: 5,
     zIndex: 2,
     position: 'absolute',
     alignItems: 'center',
-    top: 50,
+    // top: 50,
   },
   msg: {
     fontSize: 24,
@@ -123,10 +115,10 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     gap: 12,
-    marginTop: width * 0.5625,
+    // marginTop: width * 0.5625,
   },
   photosContainer: {
-    marginBottom: 70,
+    // marginBottom: 70,
   },
   profilePhoto: {
     backgroundColor: '#FFFFFF',
@@ -138,11 +130,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignSelf: 'center',
     elevation: 60,
-    marginBottom: 40,
+    // marginBottom: 40,
   },
   coverPhoto: {
     width: width,
-    height: 490,
+    height: '70%',
     position: 'absolute',
     top: 0,
   },
@@ -187,8 +179,8 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
-    marginTop: 41,
+    marginBottom: 30,
+    // marginTop: 41,
   },
   label: {
     fontSize: 16,

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import * as ImagePicker from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, Dimensions, Image, Alert } from 'react-native';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
-
-import axios from 'axios';
+import axiosInstance from '../../config/AxiosInstance';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { RootStackParamList } from 'types/navigation';
 import ActionButtonGreen from '@components/events/ActionButtonGreen';
@@ -21,6 +20,7 @@ type ProfileAvatarProps = NativeStackScreenProps<
 
 const ProfileAvatarScreen: React.FC<ProfileAvatarProps> = ({ navigation }) => {
   const [selectedImageURI, setSelectedImageURI] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
 
   const handleImageSelection = async () => {
     const image = await ImagePicker.launchImageLibrary({
@@ -32,54 +32,26 @@ const ProfileAvatarScreen: React.FC<ProfileAvatarProps> = ({ navigation }) => {
     console.log('ImagePicker result:', image);
 
     if (image.assets && image.assets.length != 0) {
-      console.log('deu certo:', image);
       setSelectedImageURI(image.assets[0].uri || null);
     }
-    //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //   if (status !== 'granted') {
-    //     Alert.alert('Sorry, we need camera roll permissions to make this work!');
-    //     return;
-    //   }
-
-    //   const result = await ImagePicker.launchImageLibrary({
-    //     mediaType: ImagePicker.MediaTypeOptions.Images,
-    //     allowsEditing: true,
-    //     aspect: [4, 4],
-    //     quality: 1,
-    //   });
-
-    //   console.log('ImagePicker result:', result);
-
-    //   if (result) {
-    //     console.log('deu certo:', result);
-    //     setSelectedImageURI(result.assets[0].uri);
-    //   }
   };
-
 
   const handleSaveProfile = async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
       const formData = new FormData();
-      formData.append('avatar', {
-        uri: selectedImageURI,
-        type: 'image/jpeg',
-        name: 'avatar.jpg',
-      });
-
-      const response = await axios.post('http://localhost:8080/user/save-profile', formData, {
+      if (selectedImageURI) {
+        formData.append('avatar', {
+          uri: selectedImageURI,
+          type: 'image/jpeg',
+          name: 'avatar.jpg',
+        });
+      }
+      const response = await axiosInstance.post('/user/save-profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Cookie: cookie || '',
         },
       });
-
+  
       if (response.status === 202) {
         console.log('Profile photo saved successfully');
         navigation.navigate('ProfileBG');
@@ -90,6 +62,21 @@ const ProfileAvatarScreen: React.FC<ProfileAvatarProps> = ({ navigation }) => {
       console.error('Error saving profile:', error);
     }
   };
+
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get(`/user/profile/`);
+      setUserName(response.data.name);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -104,7 +91,7 @@ const ProfileAvatarScreen: React.FC<ProfileAvatarProps> = ({ navigation }) => {
               <View style={styles.photo} />
             )}
 
-            <Text style={styles.mainPhotoLabel}>Entered_name</Text>
+            <Text style={styles.mainPhotoLabel}>{userName}</Text>
           </View>
           <ActionButtonGreen
             content={'Select Image'}
@@ -125,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F6F6',
     justifyContent: 'flex-start',
-    paddingTop: 66,
+    paddingTop: '10%',
   },
   container2: {
     flex: 1,

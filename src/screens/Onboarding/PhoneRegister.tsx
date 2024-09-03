@@ -24,7 +24,7 @@ const PhoneRegisterScreen: React.FC<PhoneRegisterProps> = ({ navigation }) => {
   const handleRegisterPhoneNumber = async () => {
     try {
       const formattedPhoneNumber = selectedDDD + phoneNumber;
-      await axios.post(`http://localhost:8080/auth/phone/register`, {
+      await axios.post(`http://172.21.192.1:8080/auth/phone/register`, {
         "phone": formattedPhoneNumber
       });
       navigation.navigate('OTPVerification', { phoneNumber: formattedPhoneNumber });

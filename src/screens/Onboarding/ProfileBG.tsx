@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import * as ImagePicker from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, Dimensions, Image, Alert } from 'react-native';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
-
-import axios from 'axios';
+import axiosInstance from '../../config/AxiosInstance';
 
 import { RootStackParamList } from 'types/navigation';
 import ActionButtonGreen from '@components/events/ActionButtonGreen';
@@ -32,7 +30,6 @@ const ProfileBGScreen: React.FC<ProfileBGProps> = ({ navigation }) => {
     console.log('ImagePicker result:', image);
 
     if (image.assets && image.assets.length != 0) {
-      console.log('deu certo:', image);
       setSelectedImageURI(image.assets[0].uri || null);
     }
     //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -51,7 +48,6 @@ const ProfileBGScreen: React.FC<ProfileBGProps> = ({ navigation }) => {
     //   console.log('ImagePicker result:', result);
 
     //   if (result) {
-    //     console.log('deu certo:', result);
     //     setSelectedImageURI(result.assets[0].uri);
     //   }
   };
@@ -59,12 +55,6 @@ const ProfileBGScreen: React.FC<ProfileBGProps> = ({ navigation }) => {
 
   const handleSaveProfile = async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
 
       const formData = new FormData();
       formData.append('bg', {
@@ -73,10 +63,9 @@ const ProfileBGScreen: React.FC<ProfileBGProps> = ({ navigation }) => {
         name: 'avatar.jpg',
       });
 
-      const response = await axios.post('http://localhost:8080/user/save-profile', formData, {
+      const response = await axiosInstance.post('/user/save-profile', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Cookie: cookie || '',
+          'Content-Type': 'multipart/form-data'
         },
       });
 
@@ -104,7 +93,6 @@ const ProfileBGScreen: React.FC<ProfileBGProps> = ({ navigation }) => {
               <View style={styles.photo} />
             )}
 
-            {/* <Text style={styles.mainPhotoLabel}>Entered_name</Text> */}
           </View>
           <ActionButtonGreen
             content={'Select Image'}
@@ -125,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F6F6',
     justifyContent: 'flex-start',
-    paddingTop: 66,
+    paddingTop: '10%',
   },
   container2: {
     flex: 1,
@@ -134,6 +122,7 @@ const styles = StyleSheet.create({
     paddingBottom: 64,
     paddingTop: 20,
     paddingHorizontal: 16,
+    gap: 10
   },
   title: {
     color: '#111111',
@@ -146,8 +135,8 @@ const styles = StyleSheet.create({
   },
   profilePhoto: {
     backgroundColor: '#FFFFFF',
-    width: 300,
-    // height: 239,
+    width: 250,
+    height: 250,
     padding: 12,
     paddingBottom: 18,
     gap: 8.43,
@@ -155,8 +144,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   photo: {
-    width: 270,
-    height: 200,
+    width: 220,
+    height: 220,
     borderRadius: 5,
     alignSelf: 'center',
     backgroundColor: '#EBEBEB',

@@ -14,9 +14,11 @@ const EditProfile = ({ navigation }) => {
     bio: '',
     birthday: '',
     photo: '',
+    bg: '',
   });
   const [originalData, setOriginalData] = useState({});
-  const [selectedImageURI, setSelectedImageURI] = useState(null);
+  const [selectedAvatarURI, setSelectedAvatarURI] = useState(null);
+  const [selectedBGURI, setSelectedBGURI] = useState(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -29,14 +31,16 @@ const EditProfile = ({ navigation }) => {
         birthday: formatDateString(response.data.birthday),
         email: response.data.email,
         number: response.data.phone || '',
-        photo: response.data.avatar || '../../../assets/pictures/photo2.png',
+        photo: response.data.avatar,
+        bg: response.data.bg,
         theme: 'Blue01',
       });
       setOriginalData({
         name: response.data.name,
         bio: response.data.about,
         birthday: formatDateString(response.data.birthday),
-        photo: response.data.avatar || '../../../assets/pictures/photo2.png',
+        photo: response.data.avatar,
+        bg: response.data.bg,
       });
     } catch (error) {
       console.error('Error fetching profile data:', error);
@@ -64,82 +68,31 @@ const EditProfile = ({ navigation }) => {
     }));
   };
 
-  const checkAndRequestPermissions = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const hasCameraPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
-        const hasReadPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE);
-        const hasWritePermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-  
-        if (hasCameraPermission && hasReadPermission && hasWritePermission) {
-          return true;
-        }
-  
-        const granted = await PermissionsAndroid.requestMultiple(
-          [
-            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-            PermissionsAndroid.PERMISSIONS.CAMERA,
-          ],
-          {
-            title: 'Access Permissions',
-            message: 'The app needs access to your gallery and camera.',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          }
-        );
-  
-        console.log('Permissions granted:', granted);
-  
-        const allGranted = granted['android.permission.READ_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED &&
-                           granted['android.permission.WRITE_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED &&
-                           granted['android.permission.CAMERA'] === PermissionsAndroid.RESULTS.GRANTED;
-  
-        if (!allGranted) {
-          Alert.alert('Permissions Denied', 'Unable to access the gallery or camera.');
-        }
-  
-        return allGranted;
-      } catch (err) {
-        console.warn(err);
-        return false;
+  const handleImageSelection = async (type) => {
+    const result = await ImagePicker.launchImageLibrary({
+      mediaType: "photo",
+      quality: 1,
+      selectionLimit: 1,
+    });
+
+    console.log('ImagePicker result:', result);
+
+    if (result.assets && result.assets.length > 0) {
+      const selectedUri = result.assets[0].uri;
+      if (type === 'avatar') {
+        setSelectedAvatarURI(selectedUri);
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          photo: selectedUri,
+        }));
+      } else if (type === 'background') {
+        setSelectedBGURI(selectedUri);
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          bg: selectedUri,
+        }));
       }
     }
-    return true;
-  };  
-
-  const handleImageSelection = async () => {
-    const hasPermission = await checkAndRequestPermissions();
-    if (!hasPermission) return;
-
-    ImagePicker.launchImageLibrary(
-      {
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 4],
-        quality: 1,
-      },
-      (response) => {
-        console.log('Image Picker Result:', response);
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        } else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        } else {
-          const selectedUri = response.assets[0].uri;
-          console.log('Image URI:', selectedUri);
-          setSelectedImageURI(selectedUri);
-          setUserData((prevUserData) => ({
-            ...prevUserData,
-            photo: selectedUri,
-          }));
-        }
-      }
-    );
   };
 
   const handleSaveChanges = async () => {
@@ -149,12 +102,21 @@ const EditProfile = ({ navigation }) => {
       formData.append('about', userData.bio);
       formData.append('birthday', new Date(userData.birthday.split('/').reverse().join('-')).toISOString());
 
-      if (selectedImageURI) {
-        const fileName = selectedImageURI.split('/').pop();
+      if (selectedAvatarURI) {
+        const fileName = selectedAvatarURI.split('/').pop();
         const fileType = fileName.split('.').pop();
-
         formData.append('avatar', {
-          uri: selectedImageURI,
+          uri: selectedAvatarURI,
+          type: `image/${fileType}`,
+          name: fileName,
+        });
+      }
+
+      if (selectedBGURI) {
+        const fileName = selectedBGURI.split('/').pop();
+        const fileType = fileName.split('.').pop();
+        formData.append('background', {
+          uri: selectedBGURI,
           type: `image/${fileType}`,
           name: fileName,
         });
@@ -193,7 +155,7 @@ const EditProfile = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <Image source={theme.backgroundImage} style={styles.backgroundImage} />
+        <Image source={{ uri: selectedBGURI || userData.bg }} style={styles.backgroundImage} />
         <View style={styles.header}>
           <View style={styles.row}>
             <TouchableOpacity onPress={handleDiscardChanges} style={styles.buttonContainer}>
@@ -203,15 +165,16 @@ const EditProfile = ({ navigation }) => {
               <Text style={styles.text}>Save changes</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={handleImageSelection} style={styles.editButtonContainer}>
+
+          <TouchableOpacity onPress={() => handleImageSelection('background')} style={styles.editButtonContainer}>
             <SvgXml xml={Edit} style={styles.editButton} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.profilePhoto}>
-          <Image source={{ uri: userData.photo }} style={styles.photo} />
+          <Image source={{ uri: selectedAvatarURI || userData.photo }} style={styles.photo} />
           <Text style={styles.mainPhotoLabel}>{userData.name}</Text>
-          <TouchableOpacity onPress={handleImageSelection} style={styles.editButtonContainerProfile}>
+          <TouchableOpacity onPress={() => handleImageSelection('avatar')} style={styles.editButtonContainerProfile}>
             <SvgXml xml={Edit} style={styles.editButton} />
           </TouchableOpacity>
         </View>
@@ -265,7 +228,6 @@ const EditProfile = ({ navigation }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

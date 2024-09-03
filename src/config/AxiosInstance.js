@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://172.21.192.1:8080',
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use((response) => {
     const refreshToken = await AsyncStorage.getItem('refresh_token');
     if (refreshToken) {
       try {
-        const response = await axios.post('http://localhost:8080/auth/refresh', null, {
+        const response = await axios.post('http://172.21.192.1:8080/auth/refresh', null, {
           headers: { Cookie: `refresh_token=${refreshToken}` },
         });
 

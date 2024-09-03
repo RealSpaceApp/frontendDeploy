@@ -12,6 +12,10 @@ const Tags = ({ text, onPress, checked }) => {
     'view notes': { text: '#3C3C43', background: '#E7E7E8', border: '#3C3C43' },
     'add notes': { text: '#3C3C43', background: '#E7E7E8', border: '#3C3C43' },
     'delete event': { text: '#FF3333', background: '#FFDFDF', border: '#FF3333' },
+    'send feedback': { text: '#49A078', background: '#E5F7E6', border: '#49A078' },
+    'attended': { text: '#49A078', background: '#E5F7E6', border: '#49A078' },
+    "didn't attend": { text: '#3C3C43', background: '#E7E7E8', border: '#3C3C43' },
+    'discard': { text: '#3C3C43', background: '#E7E7E8', border: '#3C3C43' },
   };
 
   const tagInfo = colorMap[text.toLowerCase()] || { text: '#000000', background: '#FFFFFF', border: '#000000' };

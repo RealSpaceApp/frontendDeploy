@@ -44,7 +44,7 @@ const IntroductionScreen: React.FC<IntroductionProps> = ({ navigation }) => {
           }).start(() => {
             if (container === 'blue') setCurrentContainer('red');
             if (container === 'red') setCurrentContainer('green');
-            if (container === 'green') navigation.navigate('Logo');
+            if (container === 'green') navigation.navigate('LandingPageProfile');
           });
         } else {
           Animated.spring(pan, {

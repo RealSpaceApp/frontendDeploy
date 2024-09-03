@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, TextInput, Modal } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,58 +13,62 @@ import { SvgXml } from 'react-native-svg';
 import { useFocusEffect } from '@react-navigation/native';
 import SettingsIcon from '../../../assets/profile/SettingsIcon'
 import axiosInstance from '../../config/AxiosInstance';
+import { UserContext } from '../../config/Context/UserContext';
 
 const LandingPageProfile = ({ navigation }) => {
   const [selected, setSelected] = useState(false);
   const [selectedItems, setSelectedItems] = useState({});
+  const [friendsData, setFriendsData] = useState([]);
+  const { userData } = useContext(UserContext);
 
-  const [userData, setUserData] = useState({
-    name: '',
-    bio: '',
-    birthday: '',
-    email: '',
-    number: '',
-    photo: '',
-    theme: 'Blue01',
-    events_attended: ''
-  });
+  // const [userData, setUserData] = useState({
+  //   name: '',
+  //   bio: '',
+  //   birthday: '',
+  //   email: '',
+  //   number: '',
+  //   photo: '',
+  //   bg: '',
+  //   theme: 'Blue01',
+  //   events_attended: ''
+  // });
 
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await axiosInstance.get(`/user/profile/`);
-      console.debug('LandingPageProfile Profile Response:', response.data);
+  // const fetchData = useCallback(async () => {
+  //   try {
+  //     const response = await axiosInstance.get(`/user/profile/`);
+  //     console.debug('LandingPageProfile Profile Response:', response.data);
 
-      setUserData({
-        name: response.data.name,
-        bio: response.data.about,
-        birthday: response.data.birthday,
-        email: response.data.email,
-        number: response.data.phone || '',
-        photo: response.data.avatar || '../../../assets/pictures/photo2.png',
-        theme: 'Blue01',
-        events_attended: response.events_attended
-      });
-    } catch (error) {
-      console.error('Error fetching profile data:', error);
-    }
-  }, []);
+  //     setUserData({
+  //       name: response.data.name,
+  //       bio: response.data.about,
+  //       birthday: response.data.birthday,
+  //       email: response.data.email,
+  //       number: response.data.phone || '',
+  //       photo: response.data.avatar,
+  //       bg: response.data.bg,
+  //       theme: 'Blue01',
+  //       events_attended: response.events_attended
+  //     });
+  //   } catch (error) {
+  //     console.error('Error fetching profile data:', error);
+  //   }
+  // }, []);
 
   const fetchFriends = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/friends/`);
       console.debug('friends list', response.data);
-
-      setFriendsData(response.data);
+      setFriendsData(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error('Error fetching profile data:', error);
+      setFriendsData([]);
     }
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      fetchData();
       fetchFriends();
-    }, [fetchData, fetchFriends])
+    }, [fetchFriends])
   );
   const theme = themes[userData.theme];
   const [searchTerm, setSearchTerm] = useState('');
@@ -85,13 +89,30 @@ const LandingPageProfile = ({ navigation }) => {
     navigation.navigate('FriendsPageProfile', { id });
   };
 
-  const filteredFriendsData = friendsData.filter(friend =>
-    friend.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleRemoveFriend = useCallback(async (friendId) => {
+    try {
+      const response = await axiosInstance.post(`/friends/remove/${friendId}`);
+      if (response.status === 202) {
+        // Update the friends list after removal
+        setFriendsData(prevFriends => prevFriends.filter(friend => friend.id !== friendId));
+        setModalVisibleRemoveFriend(false);
+      } else {
+        console.error('Error removing friend:', response.status);
+      }
+    } catch (error) {
+      console.error('Error removing friend:', error);
+    }
+  }, []);
+
+  const filteredFriendsData = Array.isArray(friendsData)
+  ? friendsData.filter(friend =>
+      friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : [];
 
   const renderHeader = () => (
     <View>
-      <Image source={theme.backgroundImage} style={styles.backgroundImage} />
+      <Image source={{uri: userData.bg}} style={styles.backgroundImage} />
       <View style={styles.header2}>
         <TouchableOpacity style={[styles.editButton, { backgroundColor: theme.buttonColor3 }]}
           onPress={() => navigation.navigate('EditProfile')}>
@@ -217,30 +238,27 @@ const LandingPageProfile = ({ navigation }) => {
         </View>
       </Modal>
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisibleRemoveFriend}
-        onRequestClose={() => {
-          setModalVisibleRemoveFriend(!modalVisibleRemoveFriend);
-        }}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Remove friend?</Text>
-            <Text style={styles.modalText}>Once removed you’ll have to meet them again to add them as a friend.</Text>
-            <TouchableOpacity
-
-              onPress={() => setModalVisibleRemoveFriend(!modalVisibleRemoveFriend)}>
-              <Text style={styles.closeModalButton}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-
-              onPress={() => setModalVisibleRemoveFriend(!modalVisibleRemoveFriend)}>
-              <Text style={styles.actionModalButton}>Remove friend</Text>
-            </TouchableOpacity>
-          </View>
-
+      animationType="slide"
+      transparent={true}
+      visible={modalVisibleRemoveFriend}
+      onRequestClose={() => {
+        setModalVisibleRemoveFriend(!modalVisibleRemoveFriend);
+      }}>
+      <View style={styles.modalBackground}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Remove friend?</Text>
+          <Text style={styles.modalText}>Once removed you’ll have to meet them again to add them as a friend.</Text>
+          <TouchableOpacity
+            onPress={() => setModalVisibleRemoveFriend(!modalVisibleRemoveFriend)}>
+            <Text style={styles.closeModalButton}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleRemoveFriend(selectedFriendId)}>
+            <Text style={styles.actionModalButton}>Remove friend</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </View>
+    </Modal>
       <Modal
         animationType="slide"
         transparent={true}

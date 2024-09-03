@@ -44,4 +44,5 @@ export type RootStackParamList = {
     ManageMembers: undefined;
     CircleProfileMockedData: undefined;
     ManageMembersMockedData: undefined;
+    Notifications: undefined;
 };

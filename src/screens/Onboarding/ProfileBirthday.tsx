@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
-
-import axios from 'axios';
+import axiosInstance from '../../config/AxiosInstance';
 
 import { RootStackParamList } from 'types/navigation';
 import NextButton from '@components/events/NextButton';
@@ -24,7 +22,7 @@ const ProfileBirthdayScreen: React.FC<ProfileBirthdayProps> = ({ navigation }) =
   const minimumYear = currentYear - 10;
 
   const validateDate = (birthdate: string) => {
-    const [d, m, y] = birthdate.split('/').map(Number);
+    const [ m, d, y] = birthdate.split('/').map(Number);
     const day = Number(d);
     const monthNumber = Number(m);
     const yearNumber = Number(y);
@@ -69,35 +67,26 @@ const ProfileBirthdayScreen: React.FC<ProfileBirthdayProps> = ({ navigation }) =
   };
 
   const formatBirthdateRFC3339 = (birthdate: string) => {
-    const [day, month, year] = birthdate.split('/');
+    const [month, day, year] = birthdate.split('/');
     return `${year}-${month}-${day}T00:00:00Z`;
   };
 
   const handleNextPress = async () => {
     if (isDateValid) {
       try {
-        const cookie = await AsyncStorage.getItem('access_token');
-
-        if (!cookie) {
-          console.warn('No access token found');
-          return;
-        }
-
         const formattedDate = formatBirthdateRFC3339(birthdate);
 
         const formData = new FormData();
         formData.append('birthday', formattedDate);
-
-        const response = await axios.post(`http://localhost:8080/user/save-profile`, formData, {
+        const response = await axiosInstance.post(`/user/save-profile`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'access_token': cookie || '',
           },
         });
 
         if (response.status === 202) {
           console.log('Profile saved successfully');
-          navigation.navigate('ProfileBio');
+          navigation.navigate('ProfileAvatar');
         } else {
           console.warn('Failed to save profile');
         }
@@ -124,7 +113,7 @@ const ProfileBirthdayScreen: React.FC<ProfileBirthdayProps> = ({ navigation }) =
                 style={styles.input}
                 value={birthdate}
                 onChangeText={handleBirthdateChange}
-                placeholder="DD/MM/YYYY"
+                placeholder="MM/DD/YYYY"
                 keyboardType="numeric"
                 maxLength={10}
               />
@@ -148,7 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F6F6',
     justifyContent: 'flex-start',
-    paddingTop: 66,
+    paddingTop: '10%',
   },
   container2: {
     flex: 1,

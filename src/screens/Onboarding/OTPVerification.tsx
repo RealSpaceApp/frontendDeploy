@@ -30,11 +30,11 @@ const OTPVerificationScreen: React.FC<OTPVerificationProps> = ({ navigation }) =
   const handleVerifyPhoneNumber = async () => {
     try {
       const formattedOtp = otp.join('');
-      const response = await axios.post(`http://localhost:8080/auth/phone/verify`, {
+      const response = await axios.post(`http://172.21.192.1:8080/auth/phone/verify`, {
         phone: phoneNumber,
         otp: Number(formattedOtp),
       });
-      navigation.navigate('Overview');
+      navigation.navigate('LandingPageProfile');
     } catch (error) {
       console.error('Error verifying phone number:', error);
     }

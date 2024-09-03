@@ -20,8 +20,6 @@ import CommunityTagsScreen from '@screens/Onboarding/CommunityTags';
 import AvailabilityFeatureScreen from '@screens/Onboarding/AvailabilityFeature';
 import AddSchedule from '@screens/Onboarding/AddSchedule';
 import LastOnboarding from '@screens/Onboarding/LastOnboarding';
-//import Onboarding06 from '@screens/Onboarding/Onboarding06';
-//import Onboarding05 from '@screens/Onboarding/Onboarding05';
 {/* Landing Pages */ }
 import LandingPageEvents from '@screens/events/LandingPageEvents';
 import LandingPageCommunity from '@screens/community/LandingPageCommunity';
@@ -45,6 +43,7 @@ import CircleSettings from '@screens/circles/CircleSettings';
 import ManageMembers from '@screens/circles/ManageMembers';
 import CircleProfileMockedData from '@screens/circles/CircleProfileMockedData';
 import ManageMembersMockedData from '@screens/circles/ManageMembersMockedData';
+import Notifications from '@screens/events/Notifications';
 
 import { RootStackParamList } from 'types/navigation';
 
@@ -55,9 +54,9 @@ const MainNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {/* Onboarding */}
-
+        <Stack.Screen name="LandingPageEvents" component={LandingPageEvents} options={{ headerShown: false }}/>
         <Stack.Screen name="Introduction" component={IntroductionScreen} options={{ headerShown: false }} />
-
+        
         <Stack.Screen name="Logo" component={LogoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="LoginCallback" component={LoginCallbackScreen} options={{ headerShown: false }} />
@@ -77,32 +76,31 @@ const MainNavigator = () => {
         <Stack.Screen name="AvailabilityFeature" component={AvailabilityFeatureScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ headerShown: false }} />
         <Stack.Screen name="LastOnboarding" component={LastOnboarding} options={{ headerShown: false }} />
-        {/* <Stack.Screen name="Onboarding05" component={Onboarding05} options={{ headerShown: false }} />
-        <Stack.Screen name="Onboarding06" component={Onboarding06} options={{ headerShown: false }} /> */}
         {/* Landing Pages */}
 
-        <Stack.Screen name="LandingPageEvents" component={LandingPageEvents} options={{ headerShown: true }} />
-        <Stack.Screen name="LandingPageCommunity" component={LandingPageCommunity} options={{ headerShown: true }} />
-        <Stack.Screen name="LandingPageFriends" component={LandingPageFriends} options={{ headerShown: true }} />
-        <Stack.Screen name="LandingPageProfile" component={LandingPageProfile} options={{ headerShown: true }} />
-        <Stack.Screen name="LandingPageSchedule" component={LandingPageSchedule} options={{ headerShown: true }} />
-        <Stack.Screen name="LandingPageCircles" component={LandingPageCircles} options={{ headerShown: true }} />
-        <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: true }} />
-        <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerShown: true }} />
-        <Stack.Screen name="ProfileSettings" component={ProfileSettings} options={{ headerShown: true }} />
-        <Stack.Screen name="NewCommunity" component={NewCommunity} options={{ headerShown: true }} />
-        <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerShown: true }} />
-        <Stack.Screen name="EditSchedule" component={EditSchedule} options={{ headerShown: true }} />
+        
+        <Stack.Screen name="LandingPageCommunity" component={LandingPageCommunity} options={{ headerShown: false }} />
+        <Stack.Screen name="LandingPageFriends" component={LandingPageFriends} options={{ headerShown: false }} />
+        <Stack.Screen name="LandingPageProfile" component={LandingPageProfile} options={{ headerShown: false }} />
+        <Stack.Screen name="LandingPageSchedule" component={LandingPageSchedule} options={{ headerShown: false }} />
+        <Stack.Screen name="LandingPageCircles" component={LandingPageCircles} options={{ headerShown: false }} />
+        <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
+        <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerShown: false }} />
+        <Stack.Screen name="ProfileSettings" component={ProfileSettings} options={{ headerShown: false }} />
+        <Stack.Screen name="NewCommunity" component={NewCommunity} options={{ headerShown: false }} />
+        <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerShown: false }} />
+        <Stack.Screen name="EditSchedule" component={EditSchedule} options={{ headerShown: false }} />
         {/* <Stack.Screen name="FriendsPageProfile" component={FriendsPageProfile} options={{ headerShown: true }} /> */}
-        <Stack.Screen name="CircleProfile" component={CircleProfile} options={{ headerShown: true }} />
-        <Stack.Screen name="ChangePhoneNumber" component={ChangePhoneNumber} options={{ headerShown: true }} />
-        <Stack.Screen name="CreateCircle" component={CreateCircle} options={{ headerShown: true }} />
-        <Stack.Screen name="CircleProfilePreview" component={CircleProfilePreview} options={{ headerShown: true }} />
-        <Stack.Screen name="AddMembers" component={AddMembers} options={{ headerShown: true }} />
-        <Stack.Screen name="CircleSettings" component={CircleSettings} options={{ headerShown: true }} />
-        <Stack.Screen name="ManageMembers" component={ManageMembers} options={{ headerShown: true }} />
-        <Stack.Screen name="CircleProfileMockedData" component={CircleProfileMockedData} options={{ headerShown: true }} />
-        <Stack.Screen name="ManageMembersMockedData" component={ManageMembersMockedData} options={{ headerShown: true }} />
+        <Stack.Screen name="CircleProfile" component={CircleProfile} options={{ headerShown: false }} />
+        <Stack.Screen name="ChangePhoneNumber" component={ChangePhoneNumber} options={{ headerShown: false }} />
+        <Stack.Screen name="CreateCircle" component={CreateCircle} options={{ headerShown: false }} />
+        <Stack.Screen name="CircleProfilePreview" component={CircleProfilePreview} options={{ headerShown: false }} />
+        <Stack.Screen name="AddMembers" component={AddMembers} options={{ headerShown: false }} />
+        <Stack.Screen name="CircleSettings" component={CircleSettings} options={{ headerShown: false }} />
+        <Stack.Screen name="ManageMembers" component={ManageMembers} options={{ headerShown: false }} />
+        <Stack.Screen name="CircleProfileMockedData" component={CircleProfileMockedData} options={{ headerShown: false }} />
+        <Stack.Screen name="ManageMembersMockedData" component={ManageMembersMockedData} options={{ headerShown: false }} />
+        <Stack.Screen name="Notifications" component={Notifications} options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>

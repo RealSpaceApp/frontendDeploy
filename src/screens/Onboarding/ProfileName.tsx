@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { SvgXml } from 'react-native-svg';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
-
-import axios from 'axios';
+import axiosInstance from '../../config/AxiosInstance';
 
 import { RootStackParamList } from 'types/navigation';
 import NextButton from '@components/events/NextButton';
@@ -27,20 +25,12 @@ const ProfileName: React.FC<NameProps> = ({ navigation }) => {
 
   const handleNext = async () => {
     try {
-      const cookie = await AsyncStorage.getItem('access_token');
-
-      if (!cookie) {
-        console.warn('No access token found');
-        return;
-      }
-
       const formData = new FormData();
       formData.append('name', name);
 
-      const response = await axios.post(`http://localhost:8080/user/save-profile`, formData, {
+      const response = await axiosInstance.post(`/user/save-profile`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Cookie: cookie || '',
+          'Content-Type': 'multipart/form-data'
         },
       });
 
@@ -94,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F6F6',
     justifyContent: 'flex-start',
-    paddingTop: 66,
+    paddingTop: '10%',
   },
   container2: {
     flex: 1,

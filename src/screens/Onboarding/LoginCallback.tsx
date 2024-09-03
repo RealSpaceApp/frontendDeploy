@@ -18,7 +18,7 @@ const LoginCallbackScreen: React.FC<{}> = () => {
   useEffect(() => {
     const handleGoogleSignIn = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/auth/google/signin', {
+        const response = await axios.post('http://172.21.192.1:8080/auth/google/signin', {
           token,
         });
 

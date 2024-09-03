@@ -11,7 +11,7 @@ import Stars1 from 'assets/onboarding/Stars1';
 import Apple from 'assets/onboarding/Apple';
 
 GoogleSignin.configure({
-  webClientId: '613996156544-390fbjusqhr7j2mv4fljki69u55je212.apps.googleusercontent.com', // Your OAuth 2.0 client ID
+  webClientId: '613996156544-2e5oc8vqug12s0ti92o4majdtl722331.apps.googleusercontent.com', // Your OAuth 2.0 client ID
   offlineAccess: true,
   forceCodeForRefreshToken: true,
   iosClientId: "613996156544-iv6bmr5acdnuq8rnm82pamp6k7h9kvu5.apps.googleusercontent.com",

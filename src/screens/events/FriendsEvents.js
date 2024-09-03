@@ -4,12 +4,14 @@ import EventsCard from '../../components/events/cards/EventsCard';
 import { SvgXml } from 'react-native-svg';
 import Notification from '../../../assets/events/Notification';
 import axiosInstance from '../../config/AxiosInstance';
+import { useNavigation } from '@react-navigation/native';
 
 const FriendsEvents = () => {
   const [publicEvents, setPublicEvents] = useState([]);
   const [userProfiles, setUserProfiles] = useState({});
   const [filter, setFilter] = useState('all');
   const [not, setNot] = useState(true);
+  const navigation = useNavigation();
 
   const handleOptionSelection = (selectedFilter) => {
     setFilter(selectedFilter);
@@ -124,7 +126,7 @@ const FriendsEvents = () => {
           style={[styles.filterButton, filter === 'notAttending' && styles.selectedFilterButton]}>
           <Text style={styles.filterButtonText}>Not Attending</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.notificationButton}>
+        <TouchableOpacity style={styles.notificationButton} onPress={() => navigation.navigate('Notifications')}>
           <SvgXml xml={Notification} />
           {not && (<View style={styles.notificationAlert}></View>)}
         </TouchableOpacity>

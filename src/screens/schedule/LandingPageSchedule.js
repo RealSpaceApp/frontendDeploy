@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, createElement } from 'react';
-import { View, StyleSheet, Text, FlatList, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Dimensions, Alert } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import NavBar from '../../components/navbar/NavBar';
 import ScheduleCard from '../../components/schedule/ScheduleCard';
@@ -256,7 +256,7 @@ const LandingPageSchedule = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#F6F6F6',
     paddingBottom: 100,
   },
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 12,
-    marginTop: 60,
+    // marginTop: 60,
     marginLeft: 16,
   },
   subtitle: {
